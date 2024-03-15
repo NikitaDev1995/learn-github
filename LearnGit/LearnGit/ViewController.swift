@@ -7,18 +7,27 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageView2: UIImageView!
+    
+    var isAnotherImage: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func showImageButtonAction(_ sender: UIButton) {
-        let url = URL(string: "https://cs1.livemaster.ru/storage/0b/91/01e611ad9cc73cf7f1e79e18fach--kartiny-i-panno-berserk-legendarnyj-kadr-iz-mangi.jpg")
+    private func showTheImage(isChangeURL: Bool) {
+        var uRLString = "https://cs1.livemaster.ru/storage/0b/91/01e611ad9cc73cf7f1e79e18fach--kartiny-i-panno-berserk-legendarnyj-kadr-iz-mangi.jpg"
+        if isChangeURL {
+           uRLString = "https://cs1.livemaster.ru/storage/0b/91/01e611ad9cc73cf7f1e79e18fach--kartiny-i-panno-berserk-legendarnyj-kadr-iz-mangi.jpg"
+        } else {
+            uRLString = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1NuufxzIj7mDFds55TWi8IsuQpqYkXUQy5A&usqp=CAU"
+        }
+        let url = URL(string: uRLString)
         guard let url else {
             print("This url is incorrect")
             return
@@ -38,6 +47,10 @@ class ViewController: UIViewController {
             }
         }
         task.resume()
+    }
+    @IBAction func showImageButtonAction(_ sender: UIButton) {
+        isAnotherImage.toggle()
+        showTheImage(isChangeURL: isAnotherImage)
     }
 }
 
